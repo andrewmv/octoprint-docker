@@ -2,13 +2,18 @@ version: '2.4'
 
 services:
   octoprint:
-    image: octoprint/octoprint
+    image: octoprint:custom
     restart: unless-stopped
     ports:
       - 80:80
-    devices:
-      - /dev/ttyACM0:/dev/ttyACM0
-      - /dev/video0:/dev/video0
+#    devices:
+#      - /dev/ttyACM0:/dev/ttyACM0
+#      - /dev/video0:/dev/video0
+    # Privileged runtime is necessary allow:
+    #   * correct container startup while printer is off
+    #   * hot-plugging of timelapse camera
+    #   * GPIO access for PSU control
+    privileged: true
     volumes:
      - octoprint:/octoprint
      - ./timelapse:/octoprint/octoprint/timelapse
