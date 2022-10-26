@@ -34,9 +34,12 @@ RUN apt-get update && apt-get install -y \
   g++ \
   git \
   haproxy \
+  libffi-dev \
   libjpeg-dev \
   libjpeg62-turbo \
   libprotobuf-dev \
+  libudev-dev \
+  libusb-1.0-0-dev \
   libv4l-dev \
   openssh-client \
   v4l-utils \
@@ -44,6 +47,7 @@ RUN apt-get update && apt-get install -y \
   zlib1g-dev \
   python3-dev \
   gphoto2
+  x265
 
 # unpack s6
 COPY --from=s6build /tmp /tmp
