@@ -41,7 +41,9 @@ RUN apt-get update && apt-get install -y \
   openssh-client \
   v4l-utils \
   xz-utils \
-  zlib1g-dev
+  zlib1g-dev \
+  python3-dev \
+  gphoto2
 
 # unpack s6
 COPY --from=s6build /tmp /tmp
@@ -78,6 +80,12 @@ ENV PYTHONUSERBASE /octoprint/plugins
 ENV PATH "${PYTHONUSERBASE}/bin:${PATH}"
 # set WORKDIR 
 WORKDIR /octoprint
+
+# Add SLR snapshot and PSU control scripts
+ADD custom-scripts /scripts/
+
+# Add NAS dropbox SSH key
+ADD keys/id_rsa /octoprint/.ssh/id_rsa
 
 # port to access haproxy frontend
 EXPOSE 80
